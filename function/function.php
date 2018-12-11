@@ -1,25 +1,22 @@
 <?php
- 
-
 function opendatabase(){
-
-$url='localhost';
-$database='projet';
-$user='root';
-$password='';
-
-
-$db = NULL;
 
 
 try
 {
-  $GLOBALS['db'] = new PDO("mysql:host={$url};dbname={$database}", $user, $password,
-  array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+    $bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
+    return $bdd;
 }
-catch (Exception $e)
+catch(Exception $e)
 {
-  die('Erreur : ' . $e->getMessage());
+    die('Error : ' . $e->getMessage());
 }
 }
 
+
+$bdd=opendatabase();
+
+$req =$bdd->query("SELECT * FROM `photo`");
+
+$donnees=$req->fetch();
+  echo $donnees['nom_photo'];

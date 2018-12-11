@@ -23,11 +23,20 @@ if ( in_array($extension_upload,$extensions_valides) ) echo "Extension correcte"
 
 
 <?php
-opendatabase().
-$req = $GLOBALS['db']->query("SHOW TABLE STATUS FROM `projet` LIKE `photo` ");
-echo $req;
+opendatabase();
+
+$req = $bdd->query("SELECT Auto_increment FROM information_schema.tables WHERE table_name='photo'");
+
+//echo "gggg".$req;
+//echo $_FILES['nom']['tmp_name'];
+//$nom="images".$req;
 //$nom = "images/{$req}.{$extension_upload}";//
-$nom="images/{$req}.{$extension_upload}";
-$resultat = move_uploaded_file($_FILES['nom']['tmp_name'],$nom);
-if ($resultat) echo "Transfert réussi";
-?>
+//$nom="images/{$nom}.{$extension_upload}";
+$donnees=$req->fetch();
+    echo "req est egal a ".$donnees['Auto_increment'];
+    $nom="images/".$donnees['Auto_increment'].".".$extension_upload;
+    $resultat = move_uploaded_file($_FILES['nom']['tmp_name'],$nom);
+    if (isset($resultat)){
+        $insertion_photo=$bdd->query("INSERT INTO photo VALUES ('','{$nom}','3')");
+        echo "Transfert réussi";
+    } 
