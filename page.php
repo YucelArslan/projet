@@ -17,8 +17,8 @@ require_once ('function/function.php');
 <?php
 opendatabase();
 
-$sql = 'SELECT * FROM annonce, photo'; 
-$req = $GLOBALS['db']->prepare($sql); 
+$sql = 'SELECT * FROM annonce,photo'; 
+$req = $bdd->prepare($sql); 
 $req ->execute();
 
 
@@ -40,19 +40,8 @@ $req ->execute();
 <?php
 
 
-while($row=$req->fetch()){ 
-
-    if ($row['id_energie'] == 1) {
-        $row['id_energie']='Essence';
-    }/*
-    elseif ($row['equipment_type'] == 2) {
-        $row['equipment_type']='switch';
-    }
-*/
-
-
-
-if (isset($row)){ ?>
+while($row=$req->fetch()){
+?>
 
   <tr>
   
@@ -61,13 +50,13 @@ if (isset($row)){ ?>
             <td> <?php echo $row['prix'];  ?> </td>
             <td> <?php echo $row['annee'];  ?> </td>
             <td> <?php echo $row['id_energie'];  ?> </td>
-            <td> <img src="<?php echo 'images/'.$row['nom_photo'] ?>" /> </td>
+            <td> <img src="<?php echo $row['nom_photo'] ?>" /> </td>
             <td><input type="button" class="btn btn-secondary btn-xs" name="insert" method='post' value="insert" onclick="javascript:location.href='formulaire_annonce.php'"/></td>
-<!--     
-      </tr>     
-  </tr>
-  <?php } ?>
-<?php } ?>
+     
+  </tr> 
+<?php } ?>    
+<!--  </tr>
+
     </tbody>
 </div>
 </table>      
