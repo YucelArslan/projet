@@ -6,57 +6,34 @@
 </head>
 <body>
 
-<div class="card">
+
+<?php
+require_once ('function/function.php');
+?>
+<?php
+$bdd = opendatabase();
+?>
+<?php 
+$requ='SELECT* FROM annonce, photo';
+$re=$bdd->prepare($requ);
+$re->execute();
+
+while ($row=$re->fetch()){
+  ?>
+  <div class="card">
   <div class="card-body">
-    This is some textln klef kejf, within a card body.
+    <?php echo $row['titre'];?></br>
+    <?php echo $row['description'];?></br>
+    <?php echo $row['prix'];?></br>
+    <?php echo $row['annee'];?>
+    <?php echo $row['kilometres'];?>
+    <?php echo $row['date'];?>
+    <?php echo $row['id_energie'];?>
+    <?php echo $row['id_coordonnees'];?></br>
+    <?php echo $row['id_marque'];?></br>
+    <img src="<?php echo $row['nom_photo'];?>" alt="voiture"/></br>
   </div>
 </div>
-<?php
-require_once ('function/function.php');  
-?>
-<?php
-opendatabase();
+    
 
-$sql = 'SELECT * FROM annonce,photo'; 
-$req = $bdd->prepare($sql); 
-$req ->execute();
-
-
-?>
-<div class='container'>
-  <h2>voiture</h2>            
-  <table class='table table-striped'>
-    <thead>
-      <tr>
-        <th>titre</th>
-        <th>description</th>
-        <th>prix</th>
-        <th>année</th>
-        <th>energie</th>
-        <th>update</th>
-      </tr>
-    </thead>
-    <tbody>
-<?php
-
-
-while($row=$req->fetch()){
-?>
-
-  <tr>
-  
-            <td> <?php echo $row['titre'];  ?> </td>
-            <td> <?php echo $row['description'];  ?> </td>
-            <td> <?php echo $row['prix'];  ?> </td>
-            <td> <?php echo $row['annee'];  ?> </td>
-            <td> <?php echo $row['id_energie'];  ?> </td>
-            <td> <img src="<?php echo $row['nom_photo'] ?>" /> </td>
-            <td><input type="button" class="btn btn-secondary btn-xs" name="insert" method='post' value="insert" onclick="javascript:location.href='formulaire_annonce.php'"/></td>
-     
-  </tr> 
-<?php } ?>    
-<!--  </tr>
-
-    </tbody>
-</div>
-</table>      
+<?php } ?>

@@ -5,10 +5,10 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <body>
-
+<!--formulaire pour envoyer les donnees afin d'inserer un nouveau compte -->
 <form class="form-group" action="traitement_inscription.php" method="post">
     <div class="form-group">
-        <label>Name:</label>
+        <label>Nom:</label>
         <input required type="text" class="form-control" method="post" name="nom" placeholder="" />
     </div>
     <div class="form-group"><label>Prénom:</label>

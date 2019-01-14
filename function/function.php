@@ -12,3 +12,6 @@ catch(Exception $e)
     die('Error : ' . $e->getMessage());
 }
 }
+
+?>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">

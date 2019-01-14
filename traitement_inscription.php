@@ -7,29 +7,22 @@
 <body>
 
 <?php
-try
-{
-    $bdd= new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
-}
-catch(Exception $e)
-{
-    die('Error : ' . $e->getMessage());
-}
-
+require_once ('function/function.php');
 ?>
 
-
+<?php 
+$bdd = opendatabase();
+?>
 <?php
 
 
 if ((isset($_POST['nom'])) && (isset($_POST['prenom'])) &&  (isset($_POST['date_naissance'])) &&  (isset($_POST['mail'])) 
 && (isset($_POST['login'])) &&  (isset($_POST['password']))){
 echo "sa marche";
-
-$req_insert="INSERT INTO COMPTE VALUES ('','{$_POST['nom']}','{$_POST['prenom']}','{$_POST['date_naissance']}','{$_POST['mail']}','{$_POST['login']}','{$_POST['password']}')";
+//insertion d'un nouveau compte
+$req_insert="INSERT INTO COMPTE VALUES ('','{$_POST['nom']}', '{$_POST['prenom']}','{$_POST['date_naissance']}','{$_POST['mail']}','{$_POST['login']}','{$_POST['password']}')";  
 $mar= $bdd->prepare($req_insert);
 $mar->execute();
-
 while($row=$mar->fetch()){
     echo "blabla".$row['id_compte'];
 }
