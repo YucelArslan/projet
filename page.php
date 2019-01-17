@@ -13,8 +13,15 @@ require_once ('function/function.php');
 <?php
 $bdd = opendatabase();
 ?>
+<?php
+
+$select= "annonce.titre, annonce.description, annonce.prix, annonce.annee, annonce.kilometres, annonce.date,
+marque.nom_marque, photo.nom_photo, coordonnees.*";
+$from= 'annonce, marque, photo, coordonnees';
+
+?>
 <?php 
-$requ='SELECT* FROM annonce, photo';
+$requ='SELECT $select FROM ;
 $re=$bdd->prepare($requ);
 $re->execute();
 

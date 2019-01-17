@@ -8,21 +8,24 @@ $bdd = opendatabase();
 ?>
 
 <?php
-$where='WHERE marque.id_marque=annonce.id_marque AND energie.id_energie=annonce.id_energie';
-$From=' annonce ';
+$where=' WHERE annonce.id_marque=marque.id_marque AND annonce.id_energie=energie.id_energie AND annonce.id_coordonnees=coordonnees.id_coordonnees';
+$From=' annonce, marque, energie, coordonnees ';
+$Select= " annonce.titre, annonce.description, annonce.prix, annonce.annee, annonce.kilometres, annonce.date,
+            marque.nom_marque,
+            energie.nom_energie,
+            coordonnees.nom, coordonnees.prenom, coordonnees.rue, coordonnees.ville, coordonnees.code_postal, coordonnees.mail, coordonnees.telephone ";
 if (isset($_POST['nom_marque'])){
     $where = $where." AND marque.id_marque=".$_POST['nom_marque'];
-    $From= $From.", marque ";
 }
 
 if (isset($_POST['energie'])){
     $where = $where." AND energie.id_energie=".$_POST['energie'];
-    $From= $From.", energie ";
 }
 
 if (isset($_POST['annees_minimum'])){
     $where = $where." AND annonce.annee>=".$_POST['annees_minimum'];
 }
+
 
 if (isset($_POST['annees_maximum'])){
     $where = $where." AND annonce.annee<=".$_POST['annees_maximum'];
@@ -31,18 +34,20 @@ if (isset($_POST['annees_maximum'])){
 if (isset($_POST['prix_minimum'])){
     $where = $where." AND annonce.prix>=".$_POST['prix_minimum'];
 }
+
 if (isset($_POST['prix_maximum'])){
     $where = $where." AND annonce.prix<=".$_POST['prix_maximum'];
 }
 
 
-$req= "SELECT * FROM  ".$From.$where;
-
+$req= "SELECT ".$Select." FROM  ".$From.$where;
+echo $req."</br>";
 
 if (isset($req)){
     $envoyer = $bdd->prepare($req);
     $envoyer->execute();
 }
+
 
 while ($row = $envoyer->fetch()){
     echo $row['titre']."</br>";
@@ -51,9 +56,16 @@ while ($row = $envoyer->fetch()){
     echo $row['annee']."</br>";
     echo $row['kilometres']."</br>";
     echo $row['date']."</br>";
-    echo $row['id_energie']."</br>";
-    echo $row['id_coordonnees']."</br>";
-    echo $row['id_marque']."</br>";
+    echo $row['nom_energie']."</br>";
+    echo $row['nom']."</br>";
+    echo $row['prenom']."</br>";
+    echo $row['rue']."</br>";
+    echo $row['ville']."</br>";
+    echo $row['code_postal']."</br>";
+    echo $row['mail']."</br>";
+    echo $row['telephone']."</br>";
+    echo $row['nom_marque']."</br>";
+
 
 }
 ?>
