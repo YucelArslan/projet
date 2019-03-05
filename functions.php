@@ -14,10 +14,23 @@ $require=("SELECT {$id},{$nom} FROM {$table}");
 $req=$bdd->prepare($require);
 $req->execute();
 
-while ($row=$req->fetch()){   
+$rows=$req->fetchAll();
+foreach ($rows as $row){   
     echo "<option value='".$row[$id]."'>".$row[$nom]."</option>";
 } 
 }
+
+function lecture_full_table($nom,$table){
+    $bdd = opendatabase();
+    
+    $require=("SELECT {$nom} FROM {$table}");
+    $req=$bdd->prepare($require);
+    $req->execute();
+    
+    while ($row=$req->fetch()){   
+        echo "<option value='".$row['nom']."</option>";
+    } 
+    }
 
 
 function Kilometres($nombre_depart,$nombre_max1,$nombre_max2,$nombre_max3){

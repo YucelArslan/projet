@@ -21,7 +21,7 @@ if ((isset($_POST['nom'])) && (isset($_POST['prenom'])) &&  (isset($_POST['date_
 echo "sa marche";
 //insertion d'un nouveau compte
 $req = $bdd->prepare('INSERT INTO compte (nom,prenom, date_naissance, mail, login, mdp) VALUES(?, ?, ?, ?,?,?)');
-				$req->execute(array($_POST['nom'], $_POST['prenom'],$_POST['date_naissance'],$_POST['mail'],hash('sha256',$_POST['password']),$_POST['login']));
+				$req->execute(array($_POST['nom'], $_POST['prenom'],$_POST['date_naissance'],$_POST['mail'], $_POST['login'],hash('sha256',$_POST['password'])));
 
 }
 ?>

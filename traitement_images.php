@@ -23,7 +23,7 @@ if ( in_array($extension_upload,$extensions_valides) ) echo "Extension correcte"
 
 
 <?php
-opendatabase();
+$bdd=opendatabase();
 
 $req = $bdd->query("SELECT Auto_increment FROM information_schema.tables WHERE table_name='photo'");
 
